@@ -36,6 +36,6 @@ export async function POST(request: NextRequest) {
       headers: { "Content-Type": res.headers.get("Content-Type") || "text/plain" },
     });
   } catch (e) {
-    return NextResponse.json({ error: "Proxy fetch failed" }, { status: 502 });
+    return NextResponse.json({ error: "Upstream fetch failed" }, { status: 502 });
   }
 }

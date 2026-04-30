@@ -207,28 +207,12 @@ function Landing({ onConnect, isLoading, isConnected, error }: {
   error: string | null;
 }) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-6">
-      <div className="flex flex-col items-center w-full max-w-[440px]">
-        <div className="flex flex-col items-center gap-1 mb-6">
-          <h1 className="text-[17px] font-semibold text-[#efeff1] tracking-tight">Youtube thing</h1>
-          <p className="text-[12px] text-[#53535f] text-center leading-relaxed mt-1.5 max-w-[280px]">
-            YouTube chat lags, freezes, and sucks.
-            <br />
-            We made a simpler one that just works.
-          </p>
-        </div>
-
+    <div className="flex-1 flex items-center justify-center px-5">
+      <div className="w-full max-w-[min(100%,20rem)]">
         <ChannelInput onSubmit={onConnect} isLoading={isLoading} isConnected={isConnected} variant="landing" />
-
         {error && (
-          <p className="mt-2.5 text-[11px] text-red-500 text-center">{error}</p>
+          <p className="mt-2 text-[12px] text-red-400/90">{error}</p>
         )}
-
-        <p className="mt-5 text-[10px] text-[#2a2a32] text-center leading-relaxed">
-          Paste a <span className="text-[#3a3a44]">youtube.com/watch?v=</span> or <span className="text-[#3a3a44]">youtube.com/live/</span> link
-        </p>
-
-        <span className="mt-8 text-[11px] text-[#53535f]/30 italic">for theo</span>
       </div>
     </div>
   );
