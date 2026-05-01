@@ -3,6 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import type { ChatEvent } from "@/lib/types";
 import { SUPER_CHAT_TIERS, getUsernameColor } from "@/lib/constants";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 import { DollarSign, Star, Gift, Zap } from "lucide-react";
 
 interface Props {
@@ -39,6 +40,7 @@ export function SuperChatSidebar({ superChats, memberships, onItemClick }: Props
   const dragging = useRef(false);
   const startX = useRef(0);
   const startW = useRef(0);
+  const { settings } = useChatSettings();
 
   const onMouseDown = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -84,7 +86,7 @@ export function SuperChatSidebar({ superChats, memberships, onItemClick }: Props
   return (
     <div
       className="flex-shrink-0 border-l border-[#2a2a32] bg-[#0e0e10] flex flex-col relative"
-      style={{ width }}
+      style={{ width, ...chatFontStyle(settings) }}
     >
       {/* Drag handle */}
       <div

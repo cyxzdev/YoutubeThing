@@ -1,6 +1,7 @@
 "use client";
 
 import type { ChatEvent } from "@/lib/types";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   event: ChatEvent;
@@ -18,9 +19,10 @@ const STYLES = {
 export function MembershipEvent({ event, onNameClick, animate }: Props) {
   const memberType = event.membership?.type || "new";
   const s = STYLES[memberType] || STYLES.new;
+  const { settings } = useChatSettings();
 
   return (
-    <div className={`mx-4 my-[3px] border-l-2 ${s.border} ${s.bg}${animate ? " anim-sc" : ""}`}>
+    <div className={`mx-4 my-[3px] border-l-2 ${s.border} ${s.bg}${animate ? " anim-sc" : ""}`} style={chatFontStyle(settings)}>
       <div className="px-3 py-1">
         <span
           className={`text-xs font-bold ${s.name} cursor-pointer hover:underline`}

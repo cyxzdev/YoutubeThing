@@ -2,6 +2,7 @@
 
 import type { ChatEvent } from "@/lib/types";
 import { SUPER_CHAT_TIERS } from "@/lib/constants";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   event: ChatEvent;
@@ -12,9 +13,10 @@ interface Props {
 export function SuperChatCard({ event, onNameClick, animate }: Props) {
   if (!event.superchat) return null;
   const tier = SUPER_CHAT_TIERS[event.superchat.tier] ?? SUPER_CHAT_TIERS[4];
+  const { settings } = useChatSettings();
 
   return (
-    <div className={`mx-4 my-[3px]${animate ? " anim-sc" : ""}`} style={{ backgroundColor: tier.bg }}>
+    <div className={`mx-4 my-[3px]${animate ? " anim-sc" : ""}`} style={{ backgroundColor: tier.bg, ...chatFontStyle(settings) }}>
       <div className="flex items-center gap-2 px-3 py-1.5" style={{ backgroundColor: tier.headerBg }}>
         <img src={event.author.profileImageUrl} alt="" className="w-5 h-5 rounded-full" loading="lazy" />
         <span

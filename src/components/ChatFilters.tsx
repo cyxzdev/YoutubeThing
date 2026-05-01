@@ -1,5 +1,7 @@
 "use client";
 
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
+
 export type ChatFilter = "all" | "superchats" | "members";
 
 interface Props {
@@ -15,8 +17,9 @@ const TABS: { id: ChatFilter; label: string }[] = [
 ];
 
 export function ChatFilters({ active, onChange, counts }: Props) {
+  const { settings } = useChatSettings();
   return (
-    <div className="flex items-center px-3 bg-[#18181b] border-b border-[#2a2a32] flex-shrink-0 h-9">
+    <div className="flex items-center px-3 bg-[#18181b] border-b border-[#2a2a32] flex-shrink-0 h-9" style={chatFontStyle(settings)}>
       <div className="flex items-center gap-0.5 bg-[#0e0e10] rounded-md p-[3px]">
         {TABS.map(({ id, label }) => {
           const isActive = active === id;

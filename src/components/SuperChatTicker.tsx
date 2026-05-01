@@ -2,6 +2,7 @@
 
 import type { ChatEvent } from "@/lib/types";
 import { SUPER_CHAT_TIERS } from "@/lib/constants";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   superChats: ChatEvent[];
@@ -11,9 +12,10 @@ interface Props {
 export function SuperChatTicker({ superChats, onItemClick }: Props) {
   if (superChats.length === 0) return null;
   const recent = superChats.slice(-8);
+  const { settings } = useChatSettings();
 
   return (
-    <div className="flex gap-1 px-2 py-1.5 overflow-x-auto chat-scroll border-b border-[#2a2a32] bg-[#111114] flex-shrink-0">
+    <div className="flex gap-1 px-2 py-1.5 overflow-x-auto chat-scroll border-b border-[#2a2a32] bg-[#111114] flex-shrink-0" style={chatFontStyle(settings)}>
       {recent.map((sc) => {
         const tier = SUPER_CHAT_TIERS[sc.superchat?.tier ?? 4] ?? SUPER_CHAT_TIERS[4];
         return (

@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+/* Roobert: bundled under /public/fonts (same cuts Twitch ships on assets.twitch.tv) */
+@font-face {
+  font-family: Roobert;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Roobert-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: Roobert;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/Roobert-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: Roobert;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/Roobert-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: Roobert;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Roobert-Bold.woff2") format("woff2");
+}
+
 @layer base {
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {

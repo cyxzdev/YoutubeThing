@@ -6,6 +6,7 @@ import { ExternalLink, X, MessageSquare, DollarSign } from "lucide-react";
 import type { ChatEvent } from "@/lib/types";
 import { getUsernameColor } from "@/lib/constants";
 import { Badge } from "./Badge";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   author: ChatEvent["author"];
@@ -22,6 +23,7 @@ export function UserPopover({ author, messages, anchor, onClose }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: -9999, y: -9999 });
   const drag = useRef({ active: false, startMx: 0, startMy: 0, startPx: 0, startPy: 0 });
+  const { settings } = useChatSettings();
 
   const userMsgs = useMemo(
     () => messages.filter((m) => m.author.channelId === author.channelId).slice(-30),
@@ -90,6 +92,7 @@ export function UserPopover({ author, messages, anchor, onClose }: Props) {
         left: pos.x, top: pos.y, width: WIDTH, maxHeight: MAX_HEIGHT,
         zIndex: 99999, background: "#18181b", border: "1px solid #2a2a32",
         animation: "sc-in .12s ease-out",
+        ...chatFontStyle(settings),
       }}
     >
       {/* Header */}

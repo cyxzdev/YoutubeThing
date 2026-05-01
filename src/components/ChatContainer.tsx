@@ -7,7 +7,7 @@ import type { ChatFilter } from "./ChatFilters";
 import { ChatMessage } from "./ChatMessage";
 import { SuperChatCard } from "./SuperChatCard";
 import { MembershipEvent } from "./MembershipEvent";
-import { useChatSettings } from "@/lib/chat-settings";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   messages: ChatEvent[];
@@ -165,9 +165,10 @@ export function ChatContainer({ messages, status, filter, tabAwayMarkerId, onNam
 }
 
 function PinnedBanner({ event, onDismiss }: { event: ChatEvent; onDismiss: () => void }) {
+  const { settings } = useChatSettings();
   const text = event.message.map((p) => p.text || "").join("");
   return (
-    <div className="flex items-center gap-2 px-3 py-2 bg-[#1a1a1f] border-b border-[#2a2a32] flex-shrink-0">
+    <div className="flex items-center gap-2 px-3 py-2 bg-[#1a1a1f] border-b border-[#2a2a32] flex-shrink-0" style={chatFontStyle(settings)}>
       <Pin className="w-3 h-3 text-[#9147ff] flex-shrink-0 rotate-45" />
       {event.author.profileImageUrl && (
         <img
@@ -191,18 +192,20 @@ function PinnedBanner({ event, onDismiss }: { event: ChatEvent; onDismiss: () =>
 }
 
 function SystemMessage({ event }: { event: ChatEvent }) {
+  const { settings } = useChatSettings();
   const text = event.message.map((p) => p.text || "").join("");
   if (!text) return null;
   return (
-    <div className="px-5 py-1">
+    <div className="px-5 py-1" style={chatFontStyle(settings)}>
       <span className="text-[11px] text-[#53535f] italic">{text}</span>
     </div>
   );
 }
 
 function TabAwayLine() {
+  const { settings } = useChatSettings();
   return (
-    <div className="flex items-center gap-2 px-5 py-1 my-[2px]">
+    <div className="flex items-center gap-2 px-5 py-1 my-[2px]" style={chatFontStyle(settings)}>
       <div className="flex-1 h-px bg-[#9147ff]/40" />
       <span className="text-[9px] text-[#9147ff]/60 font-semibold uppercase tracking-widest flex-shrink-0">new</span>
       <div className="flex-1 h-px bg-[#9147ff]/40" />
@@ -211,19 +214,21 @@ function TabAwayLine() {
 }
 
 function Empty({ status, filter }: { status: ConnectionStatus; filter: ChatFilter }) {
+  const { settings } = useChatSettings();
+  const fs = chatFontStyle(settings);
   if (status === "connecting") {
     return (
-      <div className="text-center">
+      <div className="text-center" style={fs}>
         <div className="w-5 h-5 border-2 border-[#9147ff] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
         <p className="text-xs text-[#7a7a85]">Connecting to live chat...</p>
       </div>
     );
   }
   if (status === "live") {
-    return <p className="text-xs text-[#53535f]">{filter !== "all" ? "No matching messages" : "Waiting for messages..."}</p>;
+    return <p className="text-xs text-[#53535f]" style={fs}>{filter !== "all" ? "No matching messages" : "Waiting for messages..."}</p>;
   }
   if (status === "ended") {
-    return <p className="text-xs text-[#53535f]">Stream ended</p>;
+    return <p className="text-xs text-[#53535f]" style={fs}>Stream ended</p>;
   }
   return null;
 }

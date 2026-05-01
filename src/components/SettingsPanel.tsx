@@ -38,6 +38,14 @@ export function SettingsPanel({ open, onOpenChange }: Props) {
               min={16} max={48} step={4} unit="px"
               onChange={(v) => updateSetting("emojiSize", v)}
             />
+            <ToggleRow
+              label='Twitch font (Roobert)'
+              checked={settings.chatFontPreset === "twitch"}
+              onChange={(v) => updateSetting("chatFontPreset", v ? "twitch" : "default")}
+            />
+            <p className="px-3 pt-2 pb-4 text-[10px] text-[#53535f] leading-relaxed">
+              Uses Roobert.
+            </p>
           </Section>
 
           <Section title="Layout" preview={<LayoutPreview />}>

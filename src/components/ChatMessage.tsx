@@ -4,7 +4,7 @@ import { useState } from "react";
 import type { ChatEvent } from "@/lib/types";
 import { getUsernameColor } from "@/lib/constants";
 import { Badge } from "./Badge";
-import { useChatSettings } from "@/lib/chat-settings";
+import { useChatSettings, chatFontStyle } from "@/lib/chat-settings";
 
 interface Props {
   event: ChatEvent;
@@ -21,7 +21,7 @@ export function ChatMessage({ event, odd, onNameClick }: Props) {
     return (
       <div
         className="chat-line px-5 py-[2px] group hover:bg-[#26262c] transition-colors"
-        style={{ fontSize: settings.fontSize }}
+        style={{ fontSize: settings.fontSize, ...chatFontStyle(settings) }}
         onMouseEnter={() => settings.showRetractedOriginal && setShowOriginal(true)}
         onMouseLeave={() => setShowOriginal(false)}
       >
@@ -52,7 +52,7 @@ export function ChatMessage({ event, odd, onNameClick }: Props) {
 
   if (event.type === "deleted") {
     return (
-      <div className="chat-line px-5 py-[1px] text-[#53535f]" style={{ fontSize: settings.fontSize }}>
+      <div className="chat-line px-5 py-[1px] text-[#53535f]" style={{ fontSize: settings.fontSize, ...chatFontStyle(settings) }}>
         <span className="italic text-[11px]">message deleted</span>
       </div>
     );
@@ -63,7 +63,7 @@ export function ChatMessage({ event, odd, onNameClick }: Props) {
       className={`chat-line px-5 hover:bg-[#26262c] ${
         settings.compactMode ? "py-[1px]" : "py-[3px]"
       } ${settings.alternateBackground && odd ? "bg-[#1a1a1e]" : ""}`}
-      style={{ fontSize: settings.fontSize }}
+      style={{ fontSize: settings.fontSize, ...chatFontStyle(settings) }}
     >
       {settings.showProfileImages && event.author.profileImageUrl && (
         <img
